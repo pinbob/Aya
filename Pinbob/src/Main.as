@@ -1,6 +1,6 @@
 package 
 {
-	import com.pinbob.MainScene;
+	import com.pinbob.AyaScene;
 	
 	import flash.display.Sprite;
 	import flash.filesystem.File;
@@ -10,9 +10,7 @@ package
 	{
 		public function Main()
 		{
-			this.addChild(new MainScene());
-		
-			trace(File.applicationDirectory.nativePath)
+			this.addChild(new AyaScene());
 		}
 	}
 }
