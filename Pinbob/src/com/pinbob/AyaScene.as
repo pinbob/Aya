@@ -17,6 +17,8 @@ package com.pinbob
 		public static const GAME_STAT:int = 2;
 		
 		private var currentStatus:int;
+		
+		private var gameInfo:GameInfo = new GameInfo();
 		public function AyaScene():void
 		{
 			var ar:PinBobAr = new PinBobAr();
@@ -31,9 +33,9 @@ package com.pinbob
 		private var sp:Sprite;
 		private var info:TextField;
 		/* represents aya's logo */
-		private var logo:Sprite;
+		private var logo:MovieClip;
 		/* a start button */
-		private var button:Sprite;
+		private var button:MovieClip;
 		/* the game container */
 		private var gameContainer:GameContainer;
 		
@@ -42,20 +44,13 @@ package com.pinbob
 		 */ 
 		private function init():void {
 			this.currentStatus = MAIN_SCENE;
-			//TODO two sprites temporarily stands for logo and start button
-			logo = new Sprite();
-			logo.graphics.beginFill(0x00ff00, .5);
-			logo.graphics.drawRoundRect(0, 0, 300, 280, 20, 20);
-			logo.graphics.endFill();
-			logo.x = 160;
-			logo.y = 80;
+			logo = new Logo();
+			logo.x = 148.5;
+			logo.y = 180;
 			this.addChild(logo);
 			
-			button = new Sprite();
-			button.graphics.beginFill(0x00ffff);
-			button.graphics.drawCircle(0, 0, 30);
-			button.graphics.endFill();
-			button.x = 500;
+			button = new StartButton();
+			button.x = 245;
 			button.y = 300;
 			this.addChild(button);
 		}
@@ -76,7 +71,7 @@ package com.pinbob
 			/* create a display to show information */
 			info = new TextField();
 			info.x = 500;
-			info.y = 400;
+			info.y = 300;
 			this.addChild(info);
 		}
 		
@@ -85,7 +80,7 @@ package com.pinbob
 		 */
 		private function initGame():void {
 			gameContainer = new GameContainer();
-			gameContainer.init('map1.png');
+			gameContainer.init();
 			this.addChild(gameContainer);
 			this.currentStatus = AyaScene.GAME_STAT;
 		}

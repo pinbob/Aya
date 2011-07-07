@@ -36,6 +36,9 @@
       <libraryPathEntry kind="3" linkType="1" path="${DOCUMENTS}/FLARToolKit_ver2_5_4/libs/away3dlite/away3dlite_1.0.0.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="${DOCUMENTS}/FLARToolKit_ver2_5_4/libs/away3d/away3d_3.4.0.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="${DOCUMENTS}/FLARToolKit_ver2_5_4/libs/Papervision3D/Papervision3D_2.1.920.swc" sourcepath="${DOCUMENTS}/FLARToolKit_ver2_5_4/libs/Papervision3D/src" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/Users/Milky/Programs/PinBob/AyaLogo.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/Users/Milky/Programs/PinBob/StartButton.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/Users/Milky/Programs/PinBob/greensock.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath>
       <sourceAttachmentPathEntry kind="3" linkType="1" path="${DOCUMENTS}/FLARToolKit_ver2_5_4/libs/Papervision3D/Papervision3D_2.1.920.swc" sourcepath="${DOCUMENTS}/FLARToolKit_ver2_5_4/libs/Papervision3D/src" useDefaultLinkType="false"/>
@@ -58,4 +61,3 @@
     </buildTarget>
   </buildTargets>
 </actionScriptProperties>
-
