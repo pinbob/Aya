@@ -51,6 +51,10 @@ package com.pinbob
 		public static const STAGE_WIDTH:Number = 640;
 		public static const STAGE_HEIGHT:Number = 480;
 		
+		public static const REDUCE_TIME = 10;
+		public var isReducing:Boolean = false;
+		private var lastHit = false;
+		
 		private var gameInfo:GameInfo = new GameInfo();
 		
 		private var currentState:int;
@@ -148,6 +152,12 @@ package com.pinbob
 		
 		private function onTimer(event:TimerEvent):void {
 			this.timeBoard.text = (this.secondRemain - timer.currentCount) + ' sec';
+			this.isReducing = false;
+			if (this.secondRemain - timer.currentCount <= 0){
+				resetAll();
+				this.currentState = GameContainer.STATE_GAME_OVER;
+				this.timer.stop();
+			}
 		}
 		
 		private function onComplete(event:TimerEvent):void {
@@ -235,22 +245,25 @@ package com.pinbob
 		
 		private function handleInGame():void {
 			//-------Hit the map-----------
-			if(mapData.hitTest(new Point(mapBmp.x, mapBmp.y), 255, starData,
+			if(mapData !=null && mapData.hitTest(new Point(mapBmp.x, mapBmp.y), 255, starData,
 				new Point(starBmp.x, starBmp.y), 255)) {
-				mapBmp.filters = [new GlowFilter()];
-				starBmp.filters = [new GlowFilter()];
-				startCircleBmp.filters = [];
-				endCircleBmp.filters = [];
-				//currentState = STATE_GAME_OVER;
-				//timer.stop();
-				//handleGameOver();
-			//	handleComplete();
-				handleIllegal();
-				//trace("Game Over! You lose!");
+				if (!lastHit) {
+					mapBmp.filters = [new GlowFilter()];
+					starBmp.filters = [new GlowFilter()];
+					startCircleBmp.filters = [];
+					endCircleBmp.filters = [];
+					//currentState = STATE_GAME_OVER;
+					//timer.stop();
+					//handleGameOver();
+				//	handleComplete();
+					handleIllegal();
+					lastHit = true;
+					//trace("Game Over! You lose!");
+				}
 			}
 			
 			//---------Hit the end circle
-			if(starData.hitTest(new Point(starBmp.x, starBmp.y), 255, endCircleData,
+			else if(starData.hitTest(new Point(starBmp.x, starBmp.y), 255, endCircleData,
 				new Point(endCircleBmp.x, endCircleBmp.y), 255)){
 				starBmp.filters = [new GlowFilter()];
 				endCircleBmp.filters = [new GlowFilter()];
@@ -259,7 +272,10 @@ package com.pinbob
 				currentState = STATE_COMPLETE;
 				timer.stop();
 				handleComplete();
+				lastHit = false;
 				trace("Game Over! You win!");
+			} else {
+				lastHit = false;
 			}
 		}
 		
@@ -283,7 +299,8 @@ package com.pinbob
 				 scaleX:5,
 				 scaleY:5,
 				 alpha:0.5});
-			//nextLevel();
+			nextLevel();
+			this.endCircle.visible = false;
 		}
 		
 		/**
@@ -291,6 +308,13 @@ package com.pinbob
 		 */
 		private function handleIllegal():void {
 		//	showStatistics();
+			if (this.secondRemain - REDUCE_TIME > 0 && !this.isReducing){
+				this.secondRemain -= 10;
+				this.isReducing = true;
+			} else if (this.secondRemain <= 0){
+//				this.secondRemain <= 0;
+				resetAll();
+			}
 		}
 		
 		private function resetAll():void {
@@ -303,7 +327,7 @@ package com.pinbob
 		}
 		
 		private function nextLevel():void {
-			if (this.currentLevel < GameInfo.LEVEL_COUNT) {
+			if (this.currentLevel + 1 < GameInfo.LEVEL_COUNT) {
 				this.currentLevel += 1;
 				this.initLevel(this.currentLevel);
 			} else {
